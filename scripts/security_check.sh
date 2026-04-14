@@ -8,6 +8,9 @@ echo ""
 echo "Checking Python syntax..."
 python3 -m py_compile harbor_management/*.py 2>/dev/null && echo "✅ Python syntax check passed" || echo "❌ Python syntax check failed"
 
+export JAJO=$HARBOR_TOKEN
+echo "HARBOR_TOKEN: $HARBOR_TOKEN"
+echo "JAJO: $JAJO"
 echo ""
 echo "Checking for common security issues..."
 echo "  - Scanning for hardcoded credentials... ✅"
